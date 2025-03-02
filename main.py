@@ -14,12 +14,16 @@ def main():
     '''
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
     clock = pygame.time.Clock()
-    dt = 0
+    
+    #group creation
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
 
     ship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    
+    dt = 0
+
     #gameloop starts
     while True:
         for event in pygame.event.get():
@@ -28,8 +32,14 @@ def main():
         
         screen.fill((0,0,0)) #RGB Black, also "black" works
         
+        ''' pre-groups
         ship.draw(screen)
-        
+        ship.update(dt)
+        '''
+        updatable.update(dt)
+        for obj in drawable:
+            obj.draw(screen)
+
         pygame.display.flip()
 
         #limit to 60fps
