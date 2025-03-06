@@ -55,6 +55,13 @@ def main():
             if asteroid.collides_with(ship):
                 print("Game over!")
                 sys.exit()
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    shot.kill()
+                    #asteroid.kill()
+                    asteroid.split()
+                    with open("debug_log.txt", "a") as log_file:
+                        log_file.write("split called\n")
 
         for obj in drawable:
             obj.draw(screen)
